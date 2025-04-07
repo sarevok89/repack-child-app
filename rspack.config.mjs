@@ -45,7 +45,7 @@ export default env => {
           './App': './App.tsx',
         },
         shared: Object.fromEntries(
-          Object.entries(pkg.dependencies).map(([dep, {version}]) => {
+          Object.entries(pkg.dependencies).map(([dep, version]) => {
             return [
               dep,
               {singleton: true, eager: true, requiredVersion: version},
