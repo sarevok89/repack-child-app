@@ -12,8 +12,14 @@
     "bundle-android": "react-native bundle --config rspack.config.mjs --platform android --entry-file index.js --dev=false --bundle-output build/generated/android/index.bundle --assets-dest build/generated/android"
   },
   "dependencies": {
+    "@react-navigation/native": "^7.1.5",
+    "@react-navigation/native-stack": "^7.3.9",
     "react": "19.0.0",
-    "react-native": "0.78.2"
+    "react-native": "0.78.2",
+    "react-native-gesture-handler": "^2.25.0",
+    "react-native-reanimated": "^3.17.2",
+    "react-native-safe-area-context": "^5.3.0",
+    "react-native-screens": "^4.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
