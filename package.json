@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start --port 9000",
     "test": "jest",
-    "bundle-ios": "yarn react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios"
+    "bundle-ios": "react-native bundle --config rspack.config.mjs --platform ios --entry-file index.js --dev=false --bundle-output build/generated/ios/index.bundle --assets-dest build/generated/ios",
+    "bundle-android": "react-native bundle --config rspack.config.mjs --platform android --entry-file index.js --dev=false --bundle-output build/generated/android/index.bundle --assets-dest build/generated/android"
   },
   "dependencies": {
     "react": "19.0.0",

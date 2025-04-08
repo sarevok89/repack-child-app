@@ -1,6 +1,7 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import * as Repack from '@callstack/repack';
+import rspack from '@rspack/core';
 import fs from 'fs';
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
@@ -26,9 +27,6 @@ export default env => {
     resolve: {
       ...Repack.getResolveOptions(),
     },
-    // output: {
-    //   uniqueName: 'repack-child-app',
-    // },
     module: {
       rules: [
         ...Repack.getJsTransformRules(),
@@ -48,7 +46,12 @@ export default env => {
           Object.entries(pkg.dependencies).map(([dep, version]) => {
             return [
               dep,
-              {singleton: true, eager: true, requiredVersion: version},
+              {
+                singleton: true,
+                eager: false,
+                requiredVersion: version,
+                version: version.replace('^', ''),
+              },
             ];
           }),
         ),
@@ -60,6 +63,11 @@ export default env => {
         test: /\.(js)?bundle$/,
         exclude: /index.bundle$/,
       }),
+      // silence missing @react-native-masked-view optionally required by @react-navigation/elements
+      new rspack.IgnorePlugin({
+        resourceRegExp: /^@react-native-masked-view/,
+      }),
     ],
+    ignoreWarnings: [/Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/]
   };
 };
