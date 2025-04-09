@@ -1,14 +1,15 @@
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
-import * as Repack from '@callstack/repack';
-import rspack from '@rspack/core';
-import fs from 'fs';
-const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+import * as Repack from '@callstack/repack'
+import rspack from '@rspack/core'
+import fs from 'fs'
+const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'))
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const STANDALONE = Boolean(process.env.STANDALONE);
+// To run the app without the host app, change this to 'true'
+const STANDALONE = false;
 
 /**
  * Rspack configuration enhanced with Re.Pack defaults for React Native.
@@ -27,14 +28,20 @@ export default env => {
     resolve: {
       ...Repack.getResolveOptions(),
     },
+    output: {
+      path: path.resolve(__dirname, `build/generated/${platform}`),
+      uniqueName: 'RepackChildApp',
+    },
     module: {
       rules: [
         ...Repack.getJsTransformRules(),
-        ...Repack.getAssetTransformRules({inline: true}),
+        ...Repack.getAssetTransformRules(),
       ],
     },
     plugins: [
-      new Repack.RepackPlugin(),
+      new Repack.RepackPlugin({
+        platform,
+      }),
       new Repack.plugins.ModuleFederationPluginV2({
         name: 'ChildApp',
         filename: 'ChildApp.container.js.bundle',
@@ -48,7 +55,7 @@ export default env => {
               dep,
               {
                 singleton: true,
-                eager: false,
+                eager: STANDALONE,
                 requiredVersion: version,
                 version: version.replace('^', ''),
               },
