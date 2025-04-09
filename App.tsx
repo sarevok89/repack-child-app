@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 
 function App(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text>Child app!</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -14,6 +14,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
 
-export default App;
+export default App

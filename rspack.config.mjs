@@ -1,5 +1,5 @@
 import path from 'node:path'
-import {fileURLToPath} from 'node:url'
+import { fileURLToPath } from 'node:url'
 import * as Repack from '@callstack/repack'
 import rspack from '@rspack/core'
 import fs from 'fs'
@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // To run the app without the host app, change this to 'true'
-const STANDALONE = false;
+const STANDALONE = false
 
 /**
  * Rspack configuration enhanced with Re.Pack defaults for React Native.
@@ -19,7 +19,7 @@ const STANDALONE = false;
  */
 
 export default env => {
-  const {platform, mode} = env;
+  const { platform, mode } = env
 
   return {
     mode,
@@ -59,7 +59,7 @@ export default env => {
                 requiredVersion: version,
                 version: version.replace('^', ''),
               },
-            ];
+            ]
           }),
         ),
       }),
@@ -75,6 +75,8 @@ export default env => {
         resourceRegExp: /^@react-native-masked-view/,
       }),
     ],
-    ignoreWarnings: [/Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/]
-  };
-};
+    ignoreWarnings: [
+      /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+    ],
+  }
+}
